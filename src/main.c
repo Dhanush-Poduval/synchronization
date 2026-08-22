@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdint.h>
+#include <math.h>
 #include <semaphore.h>
 #include <string.h>
 #include <unistd.h>
@@ -143,7 +144,11 @@ void *drive_write(void *arg){
       .heading_rad=0.0f
     };
     enum drive_status result_status = drive_to_target(&rover,&coordinate_target);
-    printf("Driver %d : target= {%.2f , %.2f} , rover={%.2f,%.2f}\n",id,x,y,rover.position.latitude,rover.position.longitude);
+    float distance=0;
+    float x_aggregate=rover.position.latitude-x;
+    float y_aggregate=rover.position.longitude-y;
+    distance=sqrt(pow(x_aggregate,2)+pow(y_aggregate,2));
+    printf("Driver %d : target= {%.2f , %.2f} , rover={%.2f,%.2f} , distance : %f \n",id,x,y,rover.position.latitude,rover.position.longitude,distance);
   }
   return NULL;
 }
