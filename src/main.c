@@ -152,6 +152,9 @@ void *drive_write(void *arg){
     float dy=coordinate_target.longitude-rover.position.longitude;
     float error =hypotf(dx,dy);
     printf("Driver %d : target= {%.2f , %.2f} , rover={%.2f,%.2f} , error : %f \n",id,x,y,rover.position.latitude,rover.position.longitude,error);
+    if(result_status==DRIVE_REACHED_TARGET && error<=0.10){
+      printf("Success \n");
+    }
   }
   return NULL;
 }
