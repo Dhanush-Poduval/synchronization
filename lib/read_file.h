@@ -11,13 +11,15 @@ typedef struct {
 typedef struct {
   int id;
   const char* filename;
+  const char* result_filename;
 }FileArgs;
 
 
 int input_file_open(InputFile *input, const char *filename);
+int input_file_open_write(InputFile *file , const char *filename);
+int input_file_read(InputFile *input, float *x, float *y);
 
-int input_file_read(InputFile *input, float *linear, float *angular);
-
+int input_file_write(InputFile *input , float *x , float *y);
 
 void input_file_close(InputFile *input);
 
