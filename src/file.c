@@ -22,8 +22,10 @@ int input_file_open_write(InputFile *file , const char *filename){
   return 0;
 }
 
-int input_file_write(InputFile *file,float *x , float*y){
-  return fprintf(file->file,"%.2f %.2f \n",*x,*y)==2;
+int input_file_write(InputFile *file,float *x , float*y , float *error , int *status){
+  fprintf(file->file,"%.2f %.2f %.2f %d \n",*x,*y,*error,*status);
+  return 0;
+
 }
 
 int input_file_read(InputFile *input, float *x, float *y)

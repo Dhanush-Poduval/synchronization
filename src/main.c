@@ -157,11 +157,15 @@ void *drive_write(void *arg){
     float dx=coordinate_target.latitude-rover.position.latitude;
     float dy=coordinate_target.longitude-rover.position.longitude;
     float error =hypotf(dx,dy);
-    input_file_write(&input,&rover.position.latitude,&rover.position.longitude);
-    printf("Driver %d : target= {%.2f , %.2f} , rover={%.2f,%.2f} , error : %f \n",id,x,y,rover.position.latitude,rover.position.longitude,error);
-    if(result_status==DRIVE_REACHED_TARGET && error<=0.10){
-      printf("Success \n");
+    int status=1;
+    if (result_status==DRIVE_REACHED_TARGET && error<=0.10){
+      status=0;
     }
+    input_file_write(&input,&rover.position.latitude,&rover.position.longitude,&error,&status);
+    printf("Driver %d : target= {%.2f , %.2f} , rover={%.2f,%.2f} , error : %f \n",id,x,y,rover.position.latitude,rover.position.longitude,error);
+    // if(result_status==DRIVE_REACHED_TARGET && error<=0.10){
+    //   printf("Success \n");
+    // }
   }
   return NULL;
 }
